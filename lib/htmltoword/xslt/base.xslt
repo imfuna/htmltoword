@@ -288,6 +288,24 @@
     </xsl:choose>
   </xsl:template>
 
+  <xsl:template match="div[contains(concat(' ', @class, ' '), ' h-style ')]">
+    <xsl:comment>
+      This template adds MS Word style name ability.
+    </xsl:comment>
+    <xsl:variable name="element-style">
+      <xsl:value-of select="./@data-style"/>
+    </xsl:variable>
+    <w:p>
+      <w:r>
+        <w:rPr>
+          <w:pStyle w:val="{$element-style}"/>
+        </w:rPr>
+        <w:t xml:space="preserve"><xsl:value-of select="."/></w:t>
+      </w:r>
+    </w:p>
+  </xsl:template>
+
+
   <xsl:template match="div[contains(concat(' ', @class, ' '), ' -page-break ')]">
     <w:p>
       <w:r>

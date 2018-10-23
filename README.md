@@ -140,6 +140,15 @@ You can add highlighting to text by wrapping it in a span with class h and addin
 <span class="h" data-style="green">This text will have a green highlight</span>
 ```
 
+### style for a div
+
+You can add a specific style to a paragraph wrapping it in a div with class h-style and adding a data style with the name of the style to use, which must be in the custom doc template
+
+```html
+<div class="h-style" data-style="Subtitle">This text will use the Subtitle style</span>
+```
+
+
 ### Page breaks
 
 To create page breaks simply add a div with class -page-break ie:
