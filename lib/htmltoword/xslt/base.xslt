@@ -80,7 +80,6 @@
   <xsl:template match="div[not(ancestor::li) and not(ancestor::td) and not(ancestor::th) and not(ancestor::p) and not(ancestor::dl) and not(descendant::dl) and not(descendant::div) and not(descendant::p) and not(descendant::h1) and not(descendant::h2) and not(descendant::h3) and not(descendant::h4) and not(descendant::h5) and not(descendant::h6) and not(descendant::table) and not(descendant::li) and not (descendant::pre)]">
     <xsl:comment>Divs should create a p if nothing above them has and nothing below them will</xsl:comment>
     <w:p>
-      <xsl:call-template name="para-style" />
       <xsl:call-template name="text-alignment" />
       <xsl:apply-templates />
     </w:p>
@@ -105,7 +104,6 @@
 
   <xsl:template match="p[not(ancestor::li)]">
     <w:p>
-      <xsl:call-template name="para-style" />
       <xsl:call-template name="text-alignment" />
       <xsl:apply-templates />
     </w:p>
@@ -346,6 +344,7 @@
   <xsl:template name="text-alignment">
     <xsl:param name="class" select="@class" />
     <xsl:param name="style" select="@style" />
+    <xsl:param name="element-style" select="@data-style" />
     <xsl:variable name="alignment">
       <xsl:choose>
         <xsl:when test="contains(concat(' ', $class, ' '), ' center ') or contains(translate(normalize-space($style),' ',''), 'text-align:center')">center</xsl:when>
@@ -360,11 +359,6 @@
         <w:jc w:val="{$alignment}"/>
       </w:pPr>
     </xsl:if>
-  </xsl:template>
-
-  <xsl:template name="para-style">
-    <xsl:param name="class" select="@class" />
-    <xsl:param name="element-style" select="@data-style" />
     <xsl:if test="contains(concat(' ', @class, ' '), ' h-style ') and string-length(normalize-space($element-style)) > 0">
       <w:pPr>
         <w:pStyle w:val="{$element-style}"/>
