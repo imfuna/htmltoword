@@ -366,9 +366,9 @@
     <xsl:param name="class" select="@class" />
     <xsl:param name="element-style" select="@data-style" />
     <xsl:if test="contains(concat(' ', @class, ' '), ' h-style ') and string-length(normalize-space($element-style)) > 0">
-      <w:rPr>
+      <w:pPr>
         <w:pStyle w:val="{$element-style}"/>
-      </w:rPr>
+      </w:pPr>
     </xsl:if>
   </xsl:template>
 
