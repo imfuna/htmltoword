@@ -80,6 +80,7 @@
   <xsl:template match="div[not(ancestor::li) and not(ancestor::td) and not(ancestor::th) and not(ancestor::p) and not(ancestor::dl) and not(descendant::dl) and not(descendant::div) and not(descendant::p) and not(descendant::h1) and not(descendant::h2) and not(descendant::h3) and not(descendant::h4) and not(descendant::h5) and not(descendant::h6) and not(descendant::table) and not(descendant::li) and not (descendant::pre)]">
     <xsl:comment>Divs should create a p if nothing above them has and nothing below them will</xsl:comment>
     <w:p>
+      <xsl:call-template name="para-style" />
       <xsl:call-template name="text-alignment" />
       <xsl:apply-templates />
     </w:p>
@@ -104,6 +105,7 @@
 
   <xsl:template match="p[not(ancestor::li)]">
     <w:p>
+      <xsl:call-template name="para-style" />
       <xsl:call-template name="text-alignment" />
       <xsl:apply-templates />
     </w:p>
@@ -288,24 +290,6 @@
     </xsl:choose>
   </xsl:template>
 
-  <xsl:template match="div[contains(concat(' ', @class, ' '), ' h-style ')]">
-    <xsl:comment>
-      This template adds MS Word style name ability.
-    </xsl:comment>
-    <xsl:variable name="element-style">
-      <xsl:value-of select="./@data-style"/>
-    </xsl:variable>
-    <w:p>
-      <w:r>
-        <w:rPr>
-          <w:pStyle w:val="{$element-style}"/>
-        </w:rPr>
-        <w:t xml:space="preserve"><xsl:value-of select="."/></w:t>
-      </w:r>
-    </w:p>
-  </xsl:template>
-
-
   <xsl:template match="div[contains(concat(' ', @class, ' '), ' -page-break ')]">
     <w:p>
       <w:r>
@@ -375,6 +359,16 @@
       <w:pPr>
         <w:jc w:val="{$alignment}"/>
       </w:pPr>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template name="para-style">
+    <xsl:param name="class" select="@class" />
+    <xsl:param name="element-style" select="@data-style" />
+    <xsl:if test="contains(concat(' ', @class, ' '), ' h-style ') and string-length(normalize-space($element-style)) > 0">
+      <w:rPr>
+        <w:pStyle w:val="{$element-style}"/>
+      </w:rPr>
     </xsl:if>
   </xsl:template>
 
