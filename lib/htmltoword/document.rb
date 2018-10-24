@@ -117,7 +117,7 @@ module Htmltoword
       content = stylesheet.apply_to(source)
       content.gsub!(/\s*xmlns:(\w+)="(.*?)\s*"/, '') if remove_ns
       Rails.logger.info("6:#{content}")
-      @replaceable_files[file] = '<w:docPr><w:evenAndOddHeaders/></w:docPr>' + content
+      @replaceable_files[file] = content
     end
 
     #generates an array of hashes with filename and full url
