@@ -100,7 +100,6 @@ module Htmltoword
       Rails.logger.info("3:#{source}")
       transform_doc_xml(source, extras)
       local_images(source)
-      Rails.logger.info("7:#{source}")
     end
 
     def transform_doc_xml(source, extras = false)
@@ -109,7 +108,6 @@ module Htmltoword
       transformed_source = xslt(stylesheet_name: 'inline_elements').transform(transformed_source)
       Rails.logger.info("5:#{transformed_source}")
       transform_and_replace(transformed_source, document_xslt(extras), Document.doc_xml_file, extras)
-      Rails.logger.info("6:#{transformed_source}")
     end
 
     private
@@ -118,7 +116,7 @@ module Htmltoword
       stylesheet = xslt(stylesheet_path: stylesheet_path)
       content = stylesheet.apply_to(source)
       content.gsub!(/\s*xmlns:(\w+)="(.*?)\s*"/, '') if remove_ns
-      Rails.logger.info("8:#{content}")
+      Rails.logger.info("6:#{content}")
       @replaceable_files[file] = content
     end
 
