@@ -354,14 +354,19 @@
         <xsl:otherwise></xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <xsl:if test="string-length(normalize-space($alignment)) > 0">
+    <xsl:variable name="needs-element-style" >
+      <xsl:choose>
+        <xsl:when test="contains(concat(' ', $class, ' '), ' h-style ') and string-length(normalize-space($element-style)) > 0">yes</xsl:when>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="string-length(normalize-space($alignment)) > 0 or string-length(normalize-space($needs-element-style)) > 0">
       <w:pPr>
-        <w:jc w:val="{$alignment}"/>
-      </w:pPr>
-    </xsl:if>
-    <xsl:if test="contains(concat(' ', @class, ' '), ' h-style ') and string-length(normalize-space($element-style)) > 0">
-      <w:pPr>
-        <w:pStyle w:val="{$element-style}"/>
+        <xsl:if test="string-length(normalize-space($alignment)) > 0">
+          <w:jc w:val="{$alignment}"/>
+        </xsl:if>
+        <xsl:if test="string-length(normalize-space($needs-element-style)) > 0">
+          <w:pStyle w:val="{$element-style}"/>
+        </xsl:if>
       </w:pPr>
     </xsl:if>
   </xsl:template>
