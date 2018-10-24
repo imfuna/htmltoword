@@ -359,6 +359,10 @@
         <xsl:when test="contains(concat(' ', $class, ' '), ' h-style ') and string-length(normalize-space($element-style)) > 0">yes</xsl:when>
       </xsl:choose>
     </xsl:variable>
+    <xsl:comment>Style</xsl:comment>
+    <xsl:comment><xsl:copy-of select="$element-style"/></xsl:comment>
+    <xsl:comment>Needs style</xsl:comment>
+    <xsl:comment><xsl:copy-of select="$needs-element-style"/></xsl:comment>
     <xsl:if test="string-length(normalize-space($alignment)) > 0 or string-length(normalize-space($needs-element-style)) > 0">
       <w:pPr>
         <xsl:if test="string-length(normalize-space($alignment)) > 0">
