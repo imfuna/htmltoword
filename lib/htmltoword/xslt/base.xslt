@@ -78,7 +78,7 @@
   </xsl:template>
 
   <xsl:template match="div[not(ancestor::li) and not(ancestor::td) and not(ancestor::th) and not(ancestor::p) and not(ancestor::dl) and not(descendant::dl) and not(descendant::div) and not(descendant::p) and not(descendant::h1) and not(descendant::h2) and not(descendant::h3) and not(descendant::h4) and not(descendant::h5) and not(descendant::h6) and not(descendant::table) and not(descendant::li) and not (descendant::pre)]">
-    <xsl:comment>Divs should create a p if nothing above them has and nothing below them will</xsl:comment>
+    <xsl:comment>Divs should create a p if nothing above them has and nothing below them will XXX version 1.1.3</xsl:comment>
     <w:p>
       <xsl:call-template name="text-alignment" />
       <xsl:apply-templates />
