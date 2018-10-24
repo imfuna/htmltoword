@@ -15,6 +15,7 @@
     <div>
       <xsl:attribute name="class"><xsl:value-of select="../@class"/></xsl:attribute>
       <xsl:attribute name="style"><xsl:value-of select="../@style"/></xsl:attribute>
+      <xsl:attribute name="data-style"><xsl:value-of select="../@data-style"/></xsl:attribute>
       <xsl:call-template name="inlineElement"/>
     </div>
     <xsl:apply-templates select="following-sibling::node()[not((self::a|self::b|self::i|self::s|self::span|self::sub|self::sup|self::u|self::text())[parent::div|parent::li|parent::td])][1]"/>
