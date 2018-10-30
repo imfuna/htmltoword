@@ -41,20 +41,20 @@
     <xsl:apply-templates/>
   </xsl:template>
 
-  <!-- This requires that the header tag contains child tags, ot it get replaced with just text -->
-  <xsl:template match="header" >
-    <xsl:comment>Matching the header</xsl:comment>
-    <w:sectPr>
-      <w:hdr w:type="odd" >
-        <w:p>
-          <w:pPr>
-            <w:pStyle w:val="Header"/>
-          </w:pPr>
-          <xsl:apply-templates />
-        </w:p>
-      </w:hdr>
-    </w:sectPr>
-  </xsl:template>
+  <!-- This requires that the header tag contains child tags, ot it get replaced with just text Current doing headers in the template -->
+  <!--<xsl:template match="header" >-->
+    <!--<xsl:comment>Matching the header</xsl:comment>-->
+    <!--<w:sectPr>-->
+      <!--<w:hdr w:type="odd" >-->
+        <!--<w:p>-->
+          <!--<w:pPr>-->
+            <!--<w:pStyle w:val="Header"/>-->
+          <!--</w:pPr>-->
+          <!--<xsl:apply-templates />-->
+        <!--</w:p>-->
+      <!--</w:hdr>-->
+    <!--</w:sectPr>-->
+  <!--</xsl:template>-->
 
   <!-- think this is looking for nodes with no children and just replaces them with running text -->
   <xsl:template match="body/*[not(*)]">
