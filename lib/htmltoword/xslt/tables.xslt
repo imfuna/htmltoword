@@ -75,7 +75,7 @@
         <xsl:with-param name="current" select="." />
         <xsl:with-param name="class" select="@class" />
         <xsl:with-param name="style" select="@style" />
-        <xsl:with-param name="data-style" select="@data-style" />
+        <xsl:with-param name="data-style" select="../@data-style" />
       </xsl:call-template>
     </w:tc>
   </xsl:template>
