@@ -75,7 +75,7 @@
         <xsl:with-param name="current" select="." />
         <xsl:with-param name="class" select="@class" />
         <xsl:with-param name="style" select="@style" />
-        <xsl:with-param name="data-style" select="../@data-style" />
+        <xsl:with-param name="data-style" select="@data-style" />
       </xsl:call-template>
     </w:tc>
   </xsl:template>
@@ -85,6 +85,9 @@
     <xsl:param name="class" />
     <xsl:param name="style" />
     <xsl:param name="data-style" />
+    <xsl:comment>Data Style</xsl:comment>
+    <xsl:comment><xsl:copy-of select="$data-style"/></xsl:comment>
+
     <xsl:if test="count($current/*|$current/text()) = 0">
       <w:p/>
     </xsl:if>
