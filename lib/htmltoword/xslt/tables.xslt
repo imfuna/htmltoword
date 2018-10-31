@@ -75,6 +75,7 @@
         <xsl:with-param name="current" select="." />
         <xsl:with-param name="class" select="@class" />
         <xsl:with-param name="style" select="@style" />
+        <xsl:with-param name="data-style" select="@data-style" />
       </xsl:call-template>
     </w:tc>
   </xsl:template>
@@ -83,6 +84,7 @@
     <xsl:param name="current" />
     <xsl:param name="class" />
     <xsl:param name="style" />
+    <xsl:param name="data-style" />
     <xsl:if test="count($current/*|$current/text()) = 0">
       <w:p/>
     </xsl:if>
@@ -105,6 +107,7 @@
             <xsl:call-template name="text-alignment">
               <xsl:with-param name="class" select="$class" />
               <xsl:with-param name="style" select="$style" />
+              <xsl:with-param name="data-style" select="$data-style" />
             </xsl:call-template>
             <xsl:apply-templates select="." />
           </w:p>
