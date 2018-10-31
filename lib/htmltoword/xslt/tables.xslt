@@ -22,10 +22,10 @@
   <xsl:template match="table">
     <w:tbl>
       <w:tblPr>
-        <w:tblStyle w:val="TableGrid"/>
+        <w:tblStyle w:val="Sample Green"/>
         <w:tblW w:w="5000" w:type="pct"/>
         <xsl:call-template name="tableborders"/>
-        <w:tblLook w:val="0600" w:firstRow="0" w:lastRow="0" w:firstColumn="0" w:lastColumn="0" w:noHBand="1" w:noVBand="1"/>
+        <w:tblLook w:val="0600" w:firstRow="0" w:lastRow="0" w:firstColumn="0" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/>
       </w:tblPr>
       <xsl:apply-templates />
     </w:tbl>
