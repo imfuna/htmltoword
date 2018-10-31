@@ -346,6 +346,11 @@
     <xsl:param name="class" select="@class" />
     <xsl:param name="style" select="@style" />
     <xsl:param name="element-style" select="@data-style" />
+    <xsl:comment>Class</xsl:comment>
+    <xsl:comment><xsl:copy-of select="$class"/></xsl:comment>
+    <xsl:comment>Parent Class</xsl:comment>
+    <xsl:comment><xsl:copy-of select="../@class"/></xsl:comment>
+
     <xsl:variable name="alignment">
       <xsl:choose>
         <xsl:when test="contains(concat(' ', $class, ' '), ' center ') or contains(translate(normalize-space($style),' ',''), 'text-align:center')">center</xsl:when>
@@ -362,6 +367,8 @@
     </xsl:variable>
     <xsl:comment>Style</xsl:comment>
     <xsl:comment><xsl:copy-of select="$element-style"/></xsl:comment>
+    <xsl:comment>Parent Style</xsl:comment>
+    <xsl:comment><xsl:copy-of select="../@data-style"/></xsl:comment>
     <xsl:comment>Needs style</xsl:comment>
     <xsl:comment><xsl:copy-of select="$needs-element-style"/></xsl:comment>
     <xsl:if test="string-length(normalize-space($alignment)) > 0 or string-length(normalize-space($needs-element-style)) > 0">
