@@ -20,9 +20,26 @@
 
   <!-- Full width tables per default -->
   <xsl:template match="table">
+    <xsl:param name="class" select="@class" />
+    <xsl:param name="data-style" select="@data-style" />
+    <!-- check whats being set -->
+    <xsl:comment>Class</xsl:comment>
+    <xsl:comment><xsl:copy-of select="$class"/></xsl:comment>
+    <xsl:comment>data style</xsl:comment>
+    <xsl:comment><xsl:copy-of select="$data-style"/></xsl:comment>
+
+    <xsl:variable name="table-style">
+      <xsl:choose>
+        <xsl:when test="contains(concat(' ', $class, ' '), ' t-style ')"><xsl:value-of select="$data-style"/></xsl:when>
+        <xsl:otherwise>TableGrid</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:comment>table style</xsl:comment>
+    <xsl:comment><xsl:copy-of select="$table-style"/></xsl:comment>
+
     <w:tbl>
       <w:tblPr>
-        <w:tblStyle w:val="TableGrid"/>
+        <w:tblStyle w:val="{$table-style}"/>
         <w:tblW w:w="5000" w:type="pct"/>
         <!--<xsl:call-template name="tableborders"/>-->
         <!--<w:tblLook w:val="0600" w:firstRow="1" w:lastRow="0" w:firstColumn="0" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/>-->
@@ -85,8 +102,6 @@
     <xsl:param name="class" />
     <xsl:param name="style" />
     <xsl:param name="data-style" />
-    <xsl:comment>Data Style</xsl:comment>
-    <xsl:comment><xsl:copy-of select="$data-style"/></xsl:comment>
 
     <xsl:if test="count($current/*|$current/text()) = 0">
       <w:p/>
