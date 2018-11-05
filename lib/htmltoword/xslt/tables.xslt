@@ -46,7 +46,7 @@
     <w:tbl>
       <w:tblPr>
         <w:tblStyle w:val="{$table-style}"/>
-        <w:tblW w:w="{$table-width" w:type="pct"/>
+        <w:tblW w:w="{$table-width}" w:type="pct"/>
         <!--<xsl:call-template name="tableborders"/>-->
         <!--<w:tblLook w:val="0600" w:firstRow="1" w:lastRow="0" w:firstColumn="0" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/>-->
       </w:tblPr>
