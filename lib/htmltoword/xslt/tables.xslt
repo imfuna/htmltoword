@@ -34,13 +34,19 @@
         <xsl:otherwise>TableGrid</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <xsl:comment>table style</xsl:comment>
-    <xsl:comment><xsl:copy-of select="$table-style"/></xsl:comment>
+    <xsl:variable name="table-width">
+      <xsl:choose>
+        <xsl:when test="contains(concat(' ', $class, ' '), ' t-width ')"><xsl:value-of select="@data-width * 50"/></xsl:when>
+        <xsl:otherwise>5000</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:comment>table width</xsl:comment>
+    <xsl:comment><xsl:copy-of select="$table-width"/></xsl:comment>
 
     <w:tbl>
       <w:tblPr>
         <w:tblStyle w:val="{$table-style}"/>
-        <w:tblW w:w="5000" w:type="pct"/>
+        <w:tblW w:w="{$table-width" w:type="pct"/>
         <!--<xsl:call-template name="tableborders"/>-->
         <!--<w:tblLook w:val="0600" w:firstRow="1" w:lastRow="0" w:firstColumn="0" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/>-->
       </w:tblPr>
