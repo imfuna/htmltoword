@@ -19,8 +19,6 @@
        mc:Ignorable="w14 wp14">
   <w:p w14:paraId="3238E30C" w14:textId="3B931390" w:rsidR="00AE1348" w:rsidRDefault="00AE1348">
     <w:pPr><w:pStyle w:val="Header"/></w:pPr>
-    <w:r>
-    <w:t>This is the Header</w:t>
-  </w:r>
+    <w:r><w:t>This is the Header</w:t></w:r>
   </w:p>
 </w:hdr>

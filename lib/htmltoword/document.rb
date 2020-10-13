@@ -36,6 +36,13 @@ module Htmltoword
         'word/numbering.xml'
       end
 
+      def header_xml_file
+        'word/header1.xml'
+      end
+      def footer_xml_file
+        'word/footer1.xml'
+      end
+
       def relations_xml_file
         'word/_rels/document.xml.rels'
       end
@@ -64,6 +71,21 @@ module Htmltoword
               # Change only the body of document. TODO: Improve this...
               source = source.sub(/(<w:body>)((.|\n)*?)(<w:sectPr)/, "\\1#{@replaceable_files[entry.name]}\\4")
               out.write(source)
+            elsif  @replaceable_files[entry.name] && entry.name == Document.header_xml_file
+              source = entry.get_input_stream.read
+              # Change only the body of document. TODO: Improve this...
+
+              Rails.logger.info("before:#{source}")
+              source = source.sub(/<w:tbl>.*<\/w:tbl>/, "#{@replaceable_files[entry.name]}")
+              Rails.logger.info("after:#{source}")
+
+              out.write(source)
+            elsif  @replaceable_files[entry.name] && entry.name == Document.footer_xml_file
+              source = entry.get_input_stream.read
+              # Change only the body of document. TODO: Improve this...
+              source = source.sub(/<w:tbl>.*<\/w:tbl>/, "#{@replaceable_files[entry.name]}")
+              out.write(source)
+
             elsif @replaceable_files[entry.name]
               out.write(@replaceable_files[entry.name])
             elsif entry.name == Document.content_types_xml_file
@@ -95,9 +117,10 @@ module Htmltoword
       source = xslt(stylesheet_name: 'cleanup').transform(original_source)
       Rails.logger.info("1:#{source}")
       transform_and_replace(source, xslt_path('numbering'), Document.numbering_xml_file)
-      Rails.logger.info("2:#{source}")
       transform_and_replace(source, xslt_path('relations'), Document.relations_xml_file)
-      Rails.logger.info("3:#{source}")
+      # add in header and footer file
+      transform_and_replace(source, xslt_path('header'), Document.header_xml_file)
+      transform_and_replace(source, xslt_path('footer'), Document.footer_xml_file)
       transform_doc_xml(source, extras)
       local_images(source)
     end

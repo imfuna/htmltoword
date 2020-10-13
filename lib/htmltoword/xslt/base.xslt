@@ -38,7 +38,7 @@
             span
               text
     </xsl:comment>
-    <xsl:apply-templates/>
+    <xsl:apply-templates select="*[name() != 'header' and name() != 'footer']"/>
   </xsl:template>
 
   <!-- think this is looking for nodes with no children and just replaces them with running text -->

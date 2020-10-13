@@ -22,20 +22,64 @@
       <xsl:apply-templates select="//body"/>
     </w:document>
   </xsl:template>
-
-  <xsl:template match="body">
+  <!-- A4: <w:pgSz w:w="11907" w:h="16839" />-->
+  <!-- US letter: <w:pgSz w:w="12240" w:h="15840" />-->
+  <xsl:template match="body[contains(concat(' ', @class, ' '), ' portrait ') and contains(concat(' ', @class, ' '), ' A4 ')]">
     <w:body>
       <w:p>
         <xsl:apply-templates/>
       </w:p>
       <w:sectPr>
-        <w:pgSz w:w="11906" w:h="16838"/>
+        <w:pgSz w:w="11900" w:h="16820" />
         <w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="708" w:footer="708" w:gutter="0"/>
         <w:cols w:space="708"/>
         <w:docGrid w:linePitch="360"/>
       </w:sectPr>
     </w:body>
   </xsl:template>
+
+  <xsl:template match="body[contains(concat(' ', @class, ' '), ' portrait ') and contains(concat(' ', @class, ' '), ' US-Letter ')]">
+    <w:body>
+      <w:p>
+        <xsl:apply-templates/>
+      </w:p>
+      <w:sectPr>
+        <w:pgSz w:w="12240" w:h="15840"/>
+        <w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="708" w:footer="708" w:gutter="0"/>
+        <w:cols w:space="708"/>
+        <w:docGrid w:linePitch="360"/>
+      </w:sectPr>
+    </w:body>
+  </xsl:template>
+
+  <xsl:template match="body[contains(concat(' ', @class, ' '), ' landscape ') and contains(concat(' ', @class, ' '), ' A4 ')]">
+    <w:body>
+      <w:p>
+        <xsl:apply-templates/>
+      </w:p>
+      <w:sectPr>
+        <w:pgSz w:w="11900" w:h="16820" w:orient="landscape"/>
+        <w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="708" w:footer="708" w:gutter="0"/>
+        <w:cols w:space="708"/>
+        <w:docGrid w:linePitch="360"/>
+      </w:sectPr>
+    </w:body>
+  </xsl:template>
+
+  <xsl:template match="body[contains(concat(' ', @class, ' '), ' landscape ') and contains(concat(' ', @class, ' '), ' US-Letter ')]">
+    <w:body>
+      <w:p>
+        <xsl:apply-templates/>
+      </w:p>
+      <w:sectPr>
+        <w:pgSz w:w="12240" w:h="15840" w:orient="landscape"/>
+        <w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="708" w:footer="708" w:gutter="0"/>
+        <w:cols w:space="708"/>
+        <w:docGrid w:linePitch="360"/>
+      </w:sectPr>
+    </w:body>
+  </xsl:template>
+
 
   <xsl:template match="h1|h2|h3|li|span">
     <w:br/>
