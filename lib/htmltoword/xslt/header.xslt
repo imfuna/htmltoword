@@ -16,7 +16,9 @@
                 exclude-result-prefixes="java msxsl ext w o v WX aml w10"
                 extension-element-prefixes="func">
   <xsl:output method="xml" encoding="utf-8" omit-xml-declaration="yes" indent="yes" />
+  <xsl:include href="./functions.xslt"/>
   <xsl:include href="./tables.xslt"/>
+  <xsl:include href="./images.xslt"/>
 
   <xsl:template match="/*">
     <xsl:apply-templates select="/html/body/header"/>

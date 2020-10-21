@@ -298,6 +298,86 @@
     <xsl:apply-templates />
   </xsl:template>
 
+  <xsl:template match="div[contains(concat(' ', @class, ' '), ' toc ')]">
+    <w:sdt>
+    <w:sdtPr>
+      <w:id w:val="-493258456" />
+      <w:docPartObj>
+        <w:docPartGallery w:val="Table of Contents" />
+        <w:docPartUnique />
+      </w:docPartObj>
+    </w:sdtPr>
+    <w:sdtEndPr>
+      <w:rPr>
+        <w:rFonts w:asciiTheme="minorHAnsi" w:eastAsiaTheme="minorHAnsi" w:hAnsiTheme="minorHAnsi" w:cstheme="minorBidi" />
+        <w:b />
+        <w:bCs />
+        <w:noProof />
+        <w:color w:val="auto" />
+        <w:sz w:val="22" />
+        <w:szCs w:val="22" />
+      </w:rPr>
+    </w:sdtEndPr>
+    <w:sdtContent>
+      <w:p w:rsidR="00095C65" w:rsidRDefault="00095C65">
+      <w:pPr>
+        <w:pStyle w:val="TOCHeading" />
+        <w:jc w:val="center" />
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b />
+          <w:color w:val="2E74B5" w:themeColor="accent1" w:themeShade="BF" />
+          <w:sz w:val="14" />
+          <w:szCs w:val="14" />
+        </w:rPr>
+        <w:t>Table of Contents</w:t>
+      </w:r>
+    </w:p>
+    <w:p w:rsidR="00095C65" w:rsidRDefault="00095C65">
+    <w:r>
+      <w:rPr>
+        <w:b />
+        <w:bCs />
+        <w:noProof />
+      </w:rPr>
+      <w:fldChar w:fldCharType="begin" />
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:b />
+        <w:bCs />
+        <w:noProof />
+      </w:rPr>
+      <w:instrText xml:space="preserve"> TOC \o "1-2" \h \z \u  \t "Heading 1,1,Heading 2,2"</w:instrText>
+  </w:r>
+    <w:r>
+      <w:rPr>
+        <w:b />
+        <w:bCs />
+        <w:noProof />
+      </w:rPr>
+      <w:fldChar w:fldCharType="separate" />
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:noProof />
+      </w:rPr>
+      <w:t>No table of contents entries found.</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:b />
+        <w:bCs />
+        <w:noProof />
+      </w:rPr>
+      <w:fldChar w:fldCharType="end" />
+    </w:r>
+  </w:p>
+</w:sdtContent>
+    </w:sdt>
+  </xsl:template>
+
   <xsl:template match="details" />
 
   <xsl:template match="text()">

@@ -16,7 +16,7 @@
                 exclude-result-prefixes="java msxsl ext w o v WX aml w10"
                 extension-element-prefixes="func">
   <xsl:output method="xml" encoding="utf-8" omit-xml-declaration="yes" indent="yes" />
-
+  <xsl:include href="./tables.xslt"/>
   <!--<xsl:template match="/">-->
     <!--<xsl:apply-templates />-->
   <!--</xsl:template>-->
@@ -26,13 +26,13 @@
   </xsl:template>
 
   <xsl:template match="footer">
-    <w:p>
-      <w:pPr><w:pStyle w:val="Footer"/></w:pPr>
+    <w:ftr xmlns:wpc="http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas" xmlns:mo="http://schemas.microsoft.com/office/mac/office/2008/main" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mv="urn:schemas-microsoft-com:mac:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:wp14="http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:w14="http://schemas.microsoft.com/office/word/2010/wordml" xmlns:wpg="http://schemas.microsoft.com/office/word/2010/wordprocessingGroup" xmlns:wpi="http://schemas.microsoft.com/office/word/2010/wordprocessingInk" xmlns:wne="http://schemas.microsoft.com/office/word/2006/wordml" xmlns:wps="http://schemas.microsoft.com/office/word/2010/wordprocessingShape" mc:Ignorable="w14 wp14">
       <xsl:apply-templates select="table"/>
-    </w:p>
+      <w:p w14:paraId="042D5011" w14:textId="784386AD" w:rsidR="00FD1288" w:rsidRDefault="00FD1288" w:rsidP="004D351C">
+        <w:pPr><w:pStyle w:val="FooterStyle"/></w:pPr>
+      </w:p>
+    </w:ftr>
   </xsl:template>
-
-  <xsl:include href="./tables.xslt"/>
 
   <xsl:template match="p[not(ancestor::li)]">
     <w:p>
@@ -57,6 +57,10 @@
         <w:t xml:space="preserve"><xsl:value-of select="."/></w:t>
       </w:r>
     </w:p>
+  </xsl:template>
+
+  <xsl:template match="span[contains(concat(' ', @class, ' '), ' page_number ')]">
+    <w:pPr><w:pStyle w:val="PageNumberStyle"/></w:pPr><w:r><w:fldChar w:fldCharType="begin"/></w:r><w:r><w:instrText xml:space="preserve">PAGE  </w:instrText></w:r><w:r><w:fldChar w:fldCharType="separate"/></w:r><w:r><w:rPr><w:noProof/></w:rPr><w:t>1</w:t></w:r><w:r><w:fldChar w:fldCharType="end"/></w:r></w:p><w:bookmarkEnd w:id="0"/><w:p w14:paraId="163D5F0F" w14:textId="77777777" w:rsidR="000866A1" w:rsidRDefault="000866A1"><w:pPr><w:pStyle w:val="PageNumberStyle"/></w:pPr>
   </xsl:template>
 
   <xsl:template match="text()">

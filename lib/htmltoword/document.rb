@@ -46,6 +46,10 @@ module Htmltoword
       def relations_xml_file
         'word/_rels/document.xml.rels'
       end
+      # this one isn't in the template file, so we have to create it from scratch
+      def header_relations_xml_file
+        'word/_rels/header1.xml.rels'
+      end
 
       def content_types_xml_file
         '[Content_Types].xml'
@@ -75,19 +79,22 @@ module Htmltoword
               source = entry.get_input_stream.read
               # Change only the body of document. TODO: Improve this...
 
-              Rails.logger.info("before:#{source}")
+              Rails.logger.info("header before:#{source}")
               source = source.sub(/<w:tbl>.*<\/w:tbl>/, "#{@replaceable_files[entry.name]}")
-              Rails.logger.info("after:#{source}")
+              Rails.logger.info("header after:#{source}")
 
               out.write(source)
-            elsif  @replaceable_files[entry.name] && entry.name == Document.footer_xml_file
-              source = entry.get_input_stream.read
-              # Change only the body of document. TODO: Improve this...
-              source = source.sub(/<w:tbl>.*<\/w:tbl>/, "#{@replaceable_files[entry.name]}")
-              out.write(source)
+            # elsif  @replaceable_files[entry.name] && entry.name == Document.footer_xml_file
+            #   source = entry.get_input_stream.read
+            #   Change only the body of document. TODO: Improve this...
+              # Rails.logger.info("footer before:#{source}")
+              # source = source.sub(/<w:tbl>.*<\/w:tbl>/, "#{@replaceable_files[entry.name]}")
+              # Rails.logger.info("footer after:#{source}")
+              # out.write(source)
 
             elsif @replaceable_files[entry.name]
               out.write(@replaceable_files[entry.name])
+              Rails.logger.info("footer: #{entry.get_input_stream.read}")  if  entry.name == Document.footer_xml_file
             elsif entry.name == Document.content_types_xml_file
               raw_file = entry.get_input_stream.read
               content_types = @image_files.empty? ? raw_file : inject_image_content_types(raw_file)
@@ -106,6 +113,9 @@ module Htmltoword
               end
             end
           end
+        #   add the header rels
+          out.put_next_entry(Document.header_relations_xml_file)
+          out.write(@replaceable_files[Document.header_relations_xml_file])
         end
         buffer.string
       end
@@ -123,6 +133,7 @@ module Htmltoword
       transform_and_replace(source, xslt_path('footer'), Document.footer_xml_file)
       transform_doc_xml(source, extras)
       local_images(source)
+      output_header_relations
     end
 
     def transform_doc_xml(source, extras = false)
@@ -153,6 +164,15 @@ module Htmltoword
 
         @image_files << { filename: "image#{i+1}.#{ext}", url: image['src'], ext: ext }
       end
+    end
+    #  we have one image in the header and this is the first in the document and so we can hard code this file
+    #  logo can be png or jpg
+    def output_header_relations
+      ext =   @image_files.first[:ext]
+      @replaceable_files[Document.header_relations_xml_file] = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+           '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId12" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/image1.' +
+          ext +
+          '"/></Relationships>'
     end
 
     #get extension from filename and clean to match content_types

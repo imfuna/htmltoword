@@ -126,6 +126,14 @@
             <xsl:with-param name="current" select="."/>
           </xsl:call-template>
         </xsl:when>
+        <xsl:when test="contains(concat(' ', $class, ' '), ' no-p ')"  >
+          <xsl:call-template name="text-alignment">
+            <xsl:with-param name="class" select="$class" />
+            <xsl:with-param name="style" select="$style" />
+            <xsl:with-param name="data-style" select="$data-style" />
+          </xsl:call-template>
+          <xsl:apply-templates select="." />
+        </xsl:when>
         <xsl:otherwise>
           <w:p>
             <xsl:call-template name="text-alignment">
