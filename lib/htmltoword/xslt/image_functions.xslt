@@ -27,8 +27,29 @@
         <xsl:with-param name="data-filename" select="$data-filename"/>
       </xsl:call-template>
     </xsl:variable>
-    <xsl:value-of select="substring-after($filename,'.')"/>
+    <xsl:variable name="extension">
+      <xsl:call-template name="substring-after-last">
+        <xsl:with-param name="string" select="$filename"/>
+      </xsl:call-template>
+    </xsl:variable>
+    <xsl:value-of select="$extension"/>
   </xsl:template>
+
+  <!-- template as function used to return the file extension catering for . in the filename. -->
+  <xsl:template name="substring-after-last">
+    <xsl:param name="string"  />
+    <xsl:choose>
+      <xsl:when test="not(contains($string, '.'))">
+        <xsl:value-of select="$string" />
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="substring-after-last">
+          <xsl:with-param name="string" select="substring-after($string, '.')" />
+        </xsl:call-template>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
 
   <!-- template as function used to return the name of an image. -->
   <xsl:template name="image-name">
