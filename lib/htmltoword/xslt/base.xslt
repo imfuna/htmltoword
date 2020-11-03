@@ -51,6 +51,14 @@
     </w:p>
   </xsl:template>
 
+  <xsl:template match="section">
+      <xsl:apply-templates />
+      <w:pPr>
+        <w:sectPr>
+          <w:headerReference w:type="default" r:id="rId8"/><w:footerReference w:type="default" r:id="rId9"/>
+        </w:sectPr>
+      </w:pPr>
+  </xsl:template>
 
   <xsl:template match="br[not(ancestor::p) and not(ancestor::div) and not(ancestor::td|ancestor::li) or
                           (preceding-sibling::div or following-sibling::div or preceding-sibling::p or following-sibling::p)]">

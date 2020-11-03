@@ -60,7 +60,7 @@
   <xsl:template match="strong"><b><xsl:apply-templates/></b></xsl:template>
 
   <!-- Block elements transformations -->
-  <xsl:template match="section"><div class="{@class}" style="{@style}"><xsl:apply-templates/></div></xsl:template>
+  <!--<xsl:template match="section"><div class="{@class}" style="{@style}"><xsl:apply-templates/></div></xsl:template>-->
   <xsl:template match="article"><div  class="{@class}" style="{@style}"><xsl:apply-templates/></div></xsl:template>
 
   <xsl:template match="@*|node()">
