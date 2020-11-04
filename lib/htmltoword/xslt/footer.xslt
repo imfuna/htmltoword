@@ -60,7 +60,29 @@
   </xsl:template>
 
   <xsl:template match="span[contains(concat(' ', @class, ' '), ' page_number ')]">
-    <w:pPr><w:pStyle w:val="PageNumberStyle"/></w:pPr><w:r><w:fldChar w:fldCharType="begin"/></w:r><w:r><w:instrText xml:space="preserve">PAGE  </w:instrText></w:r><w:r><w:fldChar w:fldCharType="separate"/></w:r><w:r><w:rPr><w:noProof/></w:rPr><w:t>1</w:t></w:r><w:r><w:fldChar w:fldCharType="end"/></w:r></w:p><w:bookmarkEnd w:id="0"/><w:p w14:paraId="163D5F0F" w14:textId="77777777" w:rsidR="000866A1" w:rsidRDefault="000866A1"><w:pPr><w:pStyle w:val="PageNumberStyle"/></w:pPr>
+    <xsl:comment>page number</xsl:comment>
+    <w:pPr>
+      <w:pStyle w:val="PageNumberStyle"/>
+    </w:pPr>
+    <w:r>
+      <w:fldChar w:fldCharType="begin"/>
+    </w:r>
+    <w:r>
+      <w:instrText xml:space="preserve">PAGE
+      </w:instrText>
+    </w:r>
+    <w:r>
+      <w:fldChar w:fldCharType="separate"/>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:noProof/>
+      </w:rPr>
+      <w:t>1</w:t>
+    </w:r>
+    <w:r>
+      <w:fldChar w:fldCharType="end"/>
+    </w:r>
   </xsl:template>
 
   <xsl:template match="text()">

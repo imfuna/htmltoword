@@ -40,6 +40,49 @@
     </xsl:comment>
     <xsl:apply-templates select="*[name() != 'header' and name() != 'footer']"/>
   </xsl:template>
+  <xsl:template match="section[not(contains(concat(' ', @class, ' '), ' no-banners '))]">
+    <xsl:apply-templates />
+    <xsl:if test="position()!=last()">
+    <w:p>
+      <w:pPr>
+        <w:sectPr>
+          <w:headerReference w:type="default" r:id="rId8"/>
+          <w:footerReference w:type="default" r:id="rId9"/>
+        </w:sectPr>
+      </w:pPr>
+    </w:p>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="section[contains(concat(' ', @class, ' '), ' no-banners ')]">
+    <xsl:apply-templates />
+    <w:p>
+      <w:pPr>
+        <w:sectPr>
+          <w:hdr w:type="odd" >
+            <w:p>
+              <w:pPr>
+                <w:pStyle w:val="Header"/>
+              </w:pPr>
+              <w:r>
+                <w:t></w:t>
+              </w:r>
+            </w:p>
+          </w:hdr>
+          <w:ftr w:type="odd">
+            <w:p>
+              <w:pPr>
+                <w:pStyle w:val="Footer"/>
+              </w:pPr>
+              <w:r>
+                <w:t></w:t>
+              </w:r>
+            </w:p>
+          </w:ftr>
+        </w:sectPr>
+      </w:pPr>
+    </w:p>
+  </xsl:template>
 
   <!-- think this is looking for nodes with no children and just replaces them with running text -->
   <xsl:template match="body/*[not(*)]">
@@ -49,15 +92,6 @@
         <w:t xml:space="preserve"><xsl:value-of select="."/></w:t>
       </w:r>
     </w:p>
-  </xsl:template>
-
-  <xsl:template match="section">
-      <xsl:apply-templates />
-      <w:pPr>
-        <w:sectPr>
-          <w:headerReference w:type="default" r:id="rId8"/><w:footerReference w:type="default" r:id="rId9"/>
-        </w:sectPr>
-      </w:pPr>
   </xsl:template>
 
   <xsl:template match="br[not(ancestor::p) and not(ancestor::div) and not(ancestor::td|ancestor::li) or

@@ -23,7 +23,7 @@
     <xsl:param name="class" select="@class" />
     <xsl:param name="data-style" select="@data-style" />
     <!-- check whats being set -->
-    <xsl:comment>Class</xsl:comment>
+    <xsl:comment>Table Class</xsl:comment>
     <xsl:comment><xsl:copy-of select="$class"/></xsl:comment>
     <xsl:comment>data style</xsl:comment>
     <xsl:comment><xsl:copy-of select="$data-style"/></xsl:comment>
