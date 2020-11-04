@@ -370,8 +370,8 @@
         <w:rPr>
           <w:b />
           <w:color w:val="2E74B5" w:themeColor="accent1" w:themeShade="BF" />
-          <w:sz w:val="14" />
-          <w:szCs w:val="14" />
+          <w:sz w:val="28" />
+          <w:szCs w:val="28" />
         </w:rPr>
         <w:t>Table of Contents</w:t>
       </w:r>
