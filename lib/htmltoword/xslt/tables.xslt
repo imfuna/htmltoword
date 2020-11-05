@@ -190,6 +190,10 @@
       <xsl:if test="@colspan &gt; 1">
         <w:gridSpan w:val="{@colspan}"/>
       </xsl:if>
+      <xsl:if test="contains(@class, 'col-width')">
+        <xsl:variable name="element-width" select="@data-width" />
+        <w:tcW w:w="{$element-width}" w:type="dxa"/>
+      </xsl:if>
     </w:tcPr>
   </xsl:template>
 
