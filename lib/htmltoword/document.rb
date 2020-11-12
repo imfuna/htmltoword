@@ -39,6 +39,7 @@ module Htmltoword
       def header_xml_file
         'word/header1.xml'
       end
+
       def footer_xml_file
         'word/footer1.xml'
       end
@@ -49,6 +50,11 @@ module Htmltoword
       # this one isn't in the template file, so we have to create it from scratch
       def header_relations_xml_file
         'word/_rels/header1.xml.rels'
+      end
+
+      # this one isn't in the template file, so we have to create it from scratch
+      def footer_relations_xml_file
+        'word/_rels/footer1.xml.rels'
       end
 
       def content_types_xml_file
@@ -113,9 +119,12 @@ module Htmltoword
               end
             end
           end
-        #   add the header rels
+        #   add the header rels as its not already in the template docx
           out.put_next_entry(Document.header_relations_xml_file)
           out.write(@replaceable_files[Document.header_relations_xml_file])
+        #   add the footer rels as its not already in the template docx
+          out.put_next_entry(Document.footer_relations_xml_file)
+          out.write(@replaceable_files[Document.footer_relations_xml_file])
         end
         buffer.string
       end
@@ -131,6 +140,7 @@ module Htmltoword
       # add in header and footer file
       transform_and_replace(source, xslt_path('header'), Document.header_xml_file)
       transform_and_replace(source, xslt_path('footer'), Document.footer_xml_file)
+      transform_and_replace(source, xslt_path('footer_relations'), Document.footer_relations_xml_file)
       transform_doc_xml(source, extras)
       local_images(source)
       output_header_relations
