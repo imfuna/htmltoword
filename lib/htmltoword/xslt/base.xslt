@@ -40,17 +40,30 @@
     </xsl:comment>
     <xsl:apply-templates select="*[name() != 'header' and name() != 'footer']"/>
   </xsl:template>
-  <xsl:template match="section[not(contains(concat(' ', @class, ' '), ' no-banners '))]">
+  <xsl:template match="section[not(contains(concat(' ', @class, ' '), ' no-banners ')) and contains(concat(' ', @class, ' '), ' page-1 ')]">
+    <xsl:apply-templates />
+      <w:p>
+        <w:pPr>
+          <w:sectPr>
+            <w:pgNumType w:start="1"/>
+            <w:headerReference w:type="default" r:id="rId8"/>
+            <w:footerReference w:type="default" r:id="rId9"/>
+          </w:sectPr>
+        </w:pPr>
+      </w:p>
+  </xsl:template>
+
+  <xsl:template match="section[not(contains(concat(' ', @class, ' '), ' no-banners ')) and not(contains(concat(' ', @class, ' '), ' page-1 '))]">
     <xsl:apply-templates />
     <xsl:if test="position()!=last()">
-    <w:p>
-      <w:pPr>
-        <w:sectPr>
-          <w:headerReference w:type="default" r:id="rId8"/>
-          <w:footerReference w:type="default" r:id="rId9"/>
-        </w:sectPr>
-      </w:pPr>
-    </w:p>
+      <w:p>
+        <w:pPr>
+          <w:sectPr>
+            <w:headerReference w:type="default" r:id="rId8"/>
+            <w:footerReference w:type="default" r:id="rId9"/>
+          </w:sectPr>
+        </w:pPr>
+      </w:p>
     </xsl:if>
   </xsl:template>
 
