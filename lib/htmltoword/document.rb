@@ -4,24 +4,24 @@ module Htmltoword
 
     class << self
       include TemplatesHelper
-      def create(content, template_name = nil, extras = false)
+      def create(content, template_name = nil, extras = false, page_setup = {})
         template_name += extension if template_name && !template_name.end_with?(extension)
         document = new(template_file(template_name))
         document.replace_files(content, extras)
-        document.generate
+        document.generate(page_setup)
       end
 
-      def create_and_save(content, file_path, template_name = nil, extras = false)
+      def create_and_save(content, file_path, template_name = nil, extras = false, page_setup = {})
         File.open(file_path, 'wb') do |out|
-          out << create(content, template_name, extras)
+          out << create(content, template_name, extras, page_setup)
         end
       end
 
-      def create_with_content(template, content, extras = false)
+      def create_with_content(template, content, extras = false, page_setup = {})
         template += extension unless template.end_with?(extension)
         document = new(template_file(template))
         document.replace_files(content, extras)
-        document.generate
+        document.generate(page_setup)
       end
 
       def extension
@@ -71,13 +71,15 @@ module Htmltoword
     #
     # Generate a string representing the contents of a docx file.
     #
-    def generate
+    def generate(page_setup = {})
       Zip::File.open(@template_path) do |template_zip|
         buffer = Zip::OutputStream.write_buffer do |out|
           template_zip.each do |entry|
             out.put_next_entry entry.name
             if @replaceable_files[entry.name] && entry.name == Document.doc_xml_file
               source = entry.get_input_stream.read
+              # the source has only 1 sectPr and we change the doc dimensions based on the page setup
+              source = replace_dimensions(source, page_setup)
               # Change only the body of document. TODO: Improve this...
               source = source.sub(/(<w:body>)((.|\n)*?)(<w:sectPr)/, "\\1#{@replaceable_files[entry.name]}\\4")
               out.write(source)
@@ -155,6 +157,22 @@ module Htmltoword
     end
 
     private
+
+    def replace_dimensions(source, page_setup)
+      str = case
+              when page_setup[:size] == 'A4' && page_setup[:orientation] == 'landscape'
+                '<w:pgSz w:w="16839" w:h="11907" w:orient="landscape"/>'
+              when page_setup[:size] == 'A4' && page_setup[:orientation] == 'portrait'
+                '<w:pgSz w:w="11907" w:h="16839" />'
+              when page_setup[:size] == 'USLetter' && page_setup[:orientation] == 'landscape'
+                '<w:pgSz w:w="15842" w:h="12242" w:orient="landscape"/>'
+              when page_setup[:size] == 'USLetter' && page_setup[:orientation] == 'portrait'
+                '<w:pgSz w:w="12240" w:h="15840"/>'
+              else
+                '<w:pgSz w:w="11907" w:h="16839" />'
+            end
+      source.gsub(/<w:pgSz(.|\n)*?\/>/, str)
+    end
 
     def transform_and_replace(source, stylesheet_path, file, remove_ns = false)
       stylesheet = xslt(stylesheet_path: stylesheet_path)

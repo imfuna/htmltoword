@@ -48,6 +48,20 @@
             <w:pgNumType w:start="1"/>
             <w:headerReference w:type="default" r:id="rId8"/>
             <w:footerReference w:type="default" r:id="rId9"/>
+            <xsl:choose>
+            <xsl:when test="contains(concat(' ', @class, ' '), ' portrait ') and contains(concat(' ', @class, ' '), ' A4 ') ">
+              <w:pgSz w:w="11907" w:h="16839" />
+            </xsl:when>
+              <xsl:when test="contains(concat(' ', @class, ' '), ' portrait ') and contains(concat(' ', @class, ' '), ' US-Letter ') ">
+                <w:pgSz w:w="12240" w:h="15840"/>
+              </xsl:when>
+              <xsl:when test="contains(concat(' ', @class, ' '), ' landscape ') and contains(concat(' ', @class, ' '), ' A4 ') ">
+                <w:pgSz w:w="16839" w:h="11907" w:orient="landscape"/>
+              </xsl:when>
+              <xsl:when test="contains(concat(' ', @class, ' '), ' landscape ') and contains(concat(' ', @class, ' '), ' US-Letter ') ">
+                <w:pgSz w:w="15842" w:h="12242" w:orient="landscape"/>
+              </xsl:when>
+            </xsl:choose>
           </w:sectPr>
         </w:pPr>
       </w:p>
@@ -61,6 +75,20 @@
           <w:sectPr>
             <w:headerReference w:type="default" r:id="rId8"/>
             <w:footerReference w:type="default" r:id="rId9"/>
+            <xsl:choose>
+              <xsl:when test="contains(concat(' ', @class, ' '), ' portrait ') and contains(concat(' ', @class, ' '), ' A4 ') ">
+                <w:pgSz w:w="11907" w:h="16839" />
+              </xsl:when>
+              <xsl:when test="contains(concat(' ', @class, ' '), ' portrait ') and contains(concat(' ', @class, ' '), ' US-Letter ') ">
+                <w:pgSz w:w="12240" w:h="15840"/>
+              </xsl:when>
+              <xsl:when test="contains(concat(' ', @class, ' '), ' landscape ') and contains(concat(' ', @class, ' '), ' A4 ') ">
+                <w:pgSz w:w="16839" w:h="11907" w:orient="landscape"/>
+              </xsl:when>
+              <xsl:when test="contains(concat(' ', @class, ' '), ' landscape ') and contains(concat(' ', @class, ' '), ' US-Letter ') ">
+                <w:pgSz w:w="15842" w:h="12242" w:orient="landscape"/>
+              </xsl:when>
+            </xsl:choose>
           </w:sectPr>
         </w:pPr>
       </w:p>
@@ -92,6 +120,20 @@
               </w:r>
             </w:p>
           </w:ftr>
+          <xsl:choose>
+            <xsl:when test="contains(concat(' ', @class, ' '), ' portrait ') and contains(concat(' ', @class, ' '), ' A4 ') ">
+              <w:pgSz w:w="11907" w:h="16839" />
+            </xsl:when>
+            <xsl:when test="contains(concat(' ', @class, ' '), ' portrait ') and contains(concat(' ', @class, ' '), ' US-Letter ') ">
+              <w:pgSz w:w="12240" w:h="15840"/>
+            </xsl:when>
+            <xsl:when test="contains(concat(' ', @class, ' '), ' landscape ') and contains(concat(' ', @class, ' '), ' A4 ') ">
+              <w:pgSz w:w="16839" w:h="11907" w:orient="landscape"/>
+            </xsl:when>
+            <xsl:when test="contains(concat(' ', @class, ' '), ' landscape ') and contains(concat(' ', @class, ' '), ' US-Letter ') ">
+              <w:pgSz w:w="15842" w:h="12242" w:orient="landscape"/>
+            </xsl:when>
+          </xsl:choose>
         </w:sectPr>
       </w:pPr>
     </w:p>
