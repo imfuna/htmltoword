@@ -142,7 +142,7 @@
       </xsl:choose>
     </xsl:variable>
 
-    <xsl:value-of select="$inches * $emus.per.inch"/>
+    <xsl:value-of select='format-number($inches * $emus.per.inch, "0")'/>
   </xsl:template>
 
   <!-- template as function used to get the width or height of an image in points. -->
